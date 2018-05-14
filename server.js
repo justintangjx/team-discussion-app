@@ -1,11 +1,28 @@
-const express = require("express");
-const socket = require("socket.io");
+const express = require('express');
+const socketIO = require('socket.io');
+const path = require('path');
+
+const PORT = process.env.PORT || 3000;
+const INDEX = path.join(__dirname, 'index.html');
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const io = socketIO(server);
+
+// const express = require("express");
+// const socket = require("socket.io");
 
 const app = express();
-const PORT = 4000
-const server = app.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => 
-  console.log(`listening to port ${PORT}`));
+// let PORT = process.env.PORT || 4000
+// const server = app.use((req, res) => res.sendFile(INDEX)).listen(PORT, () => 
+//   console.log(`listening to port ${PORT}`));
 
+
+
+// const herokuApp = express.createServer(express.logger());
+// const herokuIo = require('socket.io').listen(herokuApp);
 
 app.use(express.static("client"));
 
